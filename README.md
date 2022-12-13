@@ -1,9 +1,28 @@
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [itachi](#itachi)
+  - [Configuration reference](#configuration-reference)
+  - [Command Line Reference](#command-line-reference)
+    - [Run tests](#run-tests)
+      - [Run all tests](#run-all-tests)
+      - [Run all tests in specific configurations](#run-all-tests-in-specific-configurations)
+      - [Run all tests in a specific environment](#run-all-tests-in-a-specific-environment)
+      - [Run tests with variables](#run-tests-with-variables)
+
+
 # itachi
 
 This project aims to build a HTTP automation testing tool. The users can easily use the YAML file as the configuration. 
 
+---
 ## Configuration reference
 ```YAML
+include:
+  - type: file
+    path: /your/configuration/path
+  - type: http
+    path: https://raw.githubusercontent.com/babybabyCloud/itachi/master/itachi.yml
+
 environment:
   - name: dev
     baseUrl: https://your.dev.domain
@@ -15,6 +34,10 @@ environment:
     variables:
       - variableName1: variable value 1
         variableName2: variable value 2
+
+variables:
+  - variableName1: variable value 1
+    variableName2: variable value 2
 
 client:
   - name: Client name
@@ -57,6 +80,9 @@ client:
           - urlencoded_value:
               - urlencoded_key_1: urlencoded value 1
               - urlencoded_key_2: urlencoded value 2
+    headers:
+      - header_key_1: header value 1
+        header_key_2: header value 2
 
 scenarios:
   - name: Get value from a remote server
@@ -68,13 +94,17 @@ scenarios:
           - reference: Client name
 
 ```
-
+---
 | Key | Value Type | Optional | Choice | Description |
 | --- | ---------- | -------- | ------ | ----------- |
+| include | list | Yes |  | To include another configuration file |
+| include.type | string | No | file, http | The type to be included |
+| include.path | string | No |  | The path to be included |
 | environment | dict | No |   | Define the basic infomations for different environments |
 | environment.name | string | No |  | The name of this environment |
 | environment.baseUrl | string | No |  | The base URL of your remote sever for test |
 | environment.variables | dict | Yes |  | The environment variables that can be used in the suites |
+| variables | dict | Yes |  | The global variables that can be used in the suites |
 | client | list | Yes |  | The HTTP client used in the following test steps, this can be referred in scenarios.steps.client |
 | client.auth | dict | Yes |  | Specify the authorization part of a client |
 | client.auth.method | string | No | Basic, Bearer | Specify the authorization type |
@@ -86,6 +116,7 @@ scenarios:
 | client.parameters | dict | Yes |  | The HTTP requests parameters |
 | client.body | dict | Yes |  | The HTTP requests body |
 | client.body.type | string | No | JSON, TEXT, RAW, BINARY, FORM, URLENCODED,XML | The type of HTTP requests body |
+| client.header | dict | No |  | The headers of HTTP requests body |
 | scenarios | list | No |  | The environment variables that can be used in the scenarios |
 | scenarios.name | string | No |  | The name of a scenario |
 | scenarios.description | string | Yes |  | The description of a scenario |
@@ -93,3 +124,26 @@ scenarios:
 | scenarios.steps.name | string | No |  | The name of this step |
 | scenarios.steps.description | string | Yes |  | The description of this step |
 | scenarios.steps.client |  |  |  | The same the configuration of client part. |
+
+## Command Line Reference
+
+### Run tests
+#### Run all tests
+```bash
+$: itachi run
+```
+
+#### Run all tests in specific configurations
+```bash
+$: itachi run configuration1.yaml configuration2.yaml
+```
+
+#### Run all tests in a specific environment
+```bash
+$: itachi run --env dev
+```
+
+#### Run tests with variables
+```bash
+$: itachi run --var "name=value" --var "name=value"
+```
