@@ -1,12 +1,14 @@
 package configuration
 
-type Environment struct {
-	Name      string   `yaml: "name"`
-	Domain    string   `yaml: "domain"`
-	Variables Variable `yaml: "variables"`
-}
+// EnvironmentConf is the model of environments in a configuration file
+type EnvironmentConf struct {
 
-// Environments represents the model of environments, this can be used to store configurations of different environments
-type Environments struct {
-	Environments []Environment `yaml: "environments"`
+	// Name is the key "name"
+	Name string `yaml: "name"`
+
+	// Domain is the key "domain"
+	Domain string `yaml: "domain"`
+
+	// Variables are the key "variables"
+	Variables VariableConf `yaml: "variables"`
 }

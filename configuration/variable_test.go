@@ -13,18 +13,19 @@ variables:
   variableName1: variable value 1
   variableName2: variable value 2
 `
-	variables := Variables{}
-	err := yaml.Unmarshal([]byte(data), &variables)
+	configuration := Configuration{}
+	err := yaml.Unmarshal([]byte(data), &configuration)
 
 	if err != nil {
 		t.Fatalf("%v", err)
 	}
 
-	expected := Variables{
-		Variables: Variable{
+	expected := Configuration{
+		VariableConfig: VariableConf{
 			"variableName1": "variable value 1",
 			"variableName2": "variable value 2",
 		},
 	}
-	assert.Equal(t, variables, expected, "Parsed variables should equal to the expected")
+
+	assert.Equal(t, expected, configuration, "Parsed variables don't equal to the expected")
 }

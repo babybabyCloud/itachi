@@ -8,6 +8,13 @@
       - [Run all tests in specific configurations](#run-all-tests-in-specific-configurations)
       - [Run all tests in a specific environment](#run-all-tests-in-a-specific-environment)
       - [Run tests with variables](#run-tests-with-variables)
+      - [Run tests filtering with tags](#run-tests-filtering-with-tags)
+    - [Subcommand](#subcommand)
+      - [run](#run)
+        - [Format](#format)
+        - [options](#options)
+        - [file](#file)
+      - [check](#check)
 
 
 # itachi
@@ -17,7 +24,7 @@ This project aims to build a HTTP automation testing tool. The users can easily 
 ---
 ## Configuration reference
 ```YAML
-include:
+includes:
   - type: file
     path: /your/configuration/path
   - type: http
@@ -97,9 +104,9 @@ scenarios:
 ---
 | Key | Value Type | Optional | Choice | Description |
 | --- | ---------- | -------- | ------ | ----------- |
-| include | list | Yes |  | To include another configuration file |
-| include.type | string | No | file, http | The type to be included |
-| include.path | string | No |  | The path to be included |
+| includes | list | Yes |  | To include another configuration file |
+| includes.type | string | No | file, http | The type to be included |
+| includes.path | string | No |  | The path to be included |
 | environments | dict | No |   | Define the basic infomations for different environments |
 | environments.name | string | No |  | The name of this environment |
 | environments.domain | string | No |  | The base URL with the prefix protocal of your remote sever for test. For example, http://your.doman |
@@ -147,3 +154,26 @@ $: itachi run --env dev
 ```bash
 $: itachi run --var "name=value" --var "name=value"
 ```
+
+#### Run tests filtering with tags
+```bash
+$: itachi run --tag=tag1 --tag=tag2
+```
+
+---
+
+### Subcommand
+#### run
+##### Format 
+```bash
+$: itachi run [options] [file...]
+```
+##### options
+* --env=name Specify the environment to use
+* --var="key=value" Add or overwrite the value of a variable
+* --tag=name Specify the scenarios or steps with the name of tags to run
+
+##### file
+Specify which configuration file to run. If not specify, the current directory must contain "main.yaml" or "main.yml"
+
+#### check

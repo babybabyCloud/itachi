@@ -22,19 +22,19 @@ environments:
       variableName2: variable value 2
 `
 
-	environments := Environments{}
+	configuration := Configuration{}
 
-	err := yaml.Unmarshal([]byte(data), &environments)
+	err := yaml.Unmarshal([]byte(data), &configuration)
 	if err != nil {
 		t.Fatalf("%v", err)
 	}
 
-	expected := Environments{
-		[]Environment{
+	expected := Configuration{
+		EnvironmentConfig: []EnvironmentConf{
 			{
 				Name:   "dev",
 				Domain: "https://your.dev.domain",
-				Variables: Variable{
+				Variables: VariableConf{
 					"variableName1": "variable value 1",
 					"variableName2": "variable value 2",
 				},
@@ -42,7 +42,7 @@ environments:
 			{
 				Name:   "qc",
 				Domain: "https://your.qc.domain",
-				Variables: Variable{
+				Variables: VariableConf{
 					"variableName1": "variable value 1",
 					"variableName2": "variable value 2",
 				},
@@ -50,5 +50,5 @@ environments:
 		},
 	}
 
-	assert.Equal(t, environments, expected, "Parsed environments should equal to the expected.")
+	assert.Equal(t, configuration, expected, "Parsed environments should equal to the expected.")
 }
