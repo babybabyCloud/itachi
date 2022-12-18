@@ -9,18 +9,18 @@ import (
 
 func TestEnvironment(t *testing.T) {
 	const data = `
-environments:
-  - name: dev
-    domain: https://your.dev.domain
-    variables:
-      variableName1: variable value 1
-      variableName2: variable value 2
-  - name: qc
-    domain: https://your.qc.domain
-    variables:
-      variableName1: variable value 1
-      variableName2: variable value 2
-`
+    environments:
+      - name: dev
+        domain: https://your.dev.domain
+        variables:
+          variableName1: variable value 1
+          variableName2: variable value 2
+      - name: qc
+        domain: https://your.qc.domain
+        variables:
+          variableName1: variable value 1
+          variableName2: variable value 2
+    `
 
 	configuration := Configuration{}
 
@@ -50,5 +50,5 @@ environments:
 		},
 	}
 
-	assert.Equal(t, configuration, expected, "Parsed environments should equal to the expected.")
+	assert.EqualValues(t, configuration, expected, "Parsed environments should equal to the expected.")
 }

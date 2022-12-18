@@ -49,47 +49,52 @@ variables:
 client:
   - name: Client name
     auth:
-      - method: The authorization method of this client
-        value: The authorization value
-    type: HTTP
+      method: The authorization method of this client
+      value: The authorization value
+    domain: https://your.domain
+    timeout: 30m
+    headers:
+      headerKey1: header value 1
+      headerKey2: header value 2
+
+requests:
+  - name: Request name
     method: GET
     path: /your/request/path
     parameters:
-      - parameter_name_1: parameter value 1
-        parameter_name_2: parameter value 2
-        parameter_name_3: parameter value 3
+      parameterName1: parameter value 1
+      parameterName2: parameter value 2
+      parameterName3: parameter value 3
     body:
-      - type: JSON
-        values:
-          - json_value: |
-              {
-                "json key 1": "json value 1",
-                "json key 2": "json value 2"
-              }
-          - text_value: This is the text body
-          - raw_value: This is a raw body
-          - binary_value: This is a binary body
-          - form_value:
-              - form_key_1: form value 1
-                form_key_2: form value 2
-                form_key_3:
-                  - form value 3 in a list
-                  - form value 3 in a list, the 2nd item
-                  - form value 3 in a list, the 3rd item
-                form_key_4:
-                  file: The file path
-          - xml_value: |
-              <xmlroot>
-                <xmlelement>
-                  xml value
-                </xmlelement>
-              </xmlroot>
-          - urlencoded_value:
-              - urlencoded_key_1: urlencoded value 1
-              - urlencoded_key_2: urlencoded value 2
+      type: JSON
+      jsonValue: |
+        {
+          "json key 1": "json value 1",
+          "json key 2": "json value 2"
+        }
+      textValue: This is the text body
+      rawValue: This is a raw body
+      binaryValue: This is a binary body
+      formValue:
+        formKey1: form value 1
+        formKey2: form value 2
+        formKey3:
+          - form value 3 in a list
+          - form value 3 in a list, the 2nd item
+          - form value 3 in a list, the 3rd item
+        formKey4: “file name with prefix @”
+      xmlValue: |
+        <xmlroot>
+          <xmlelement>
+            xml value
+          </xmlelement>
+        </xmlroot>
+      urlencodedValue:
+        urlencodedKey1: urlencoded value 1
+        urlencodedKey2: urlencoded value 2
     headers:
-      - header_key_1: header value 1
-        header_key_2: header value 2
+      headerKey1: header value 1
+      headerKey2: header value 2
 
 scenarios:
   - name: Get value from a remote server
@@ -98,7 +103,19 @@ scenarios:
       - name: Send a request
         description: Send request to the remote server
         client:
-          - reference: Client name
+          reference: Client name
+          auth:
+            method: The authorization method of this client
+            value: The authorization value
+          domain: https://your.domain
+          timeout: 30m
+          headers:
+            headerKey1: header value 1
+            headerKey2: header value 2
+        request:
+          reference: Request name
+
+
 
 ```
 ---
@@ -116,14 +133,18 @@ scenarios:
 | client.auth | dict | Yes |  | Specify the authorization part of a client |
 | client.auth.method | string | No | Basic, Bearer | Specify the authorization type |
 | client.auth.value | string | No |  | Specify the authorization value. For "Basic" type, it requires this value in the format of "username:password", it will be encoded using Base64. For Bearer type, it requires only the authorization value, it will be added "Bearer " to the head of this value. |
+| client.domain | string | Yes |  | The domain that the client uses, if not specify, this value will use the value of "environments.domain" |
 | client.name | string | Yes |  | The name of an HTTP client, this is used in the scenarios.steps.client.refer. This is not requires in section "scenarios.steps.client" |
-| client.type | string | No | HTTP | The type of a client, only HTTP is supported now |
-| client.method | string | No | GET, HEAD, POST, PUT, PATCH, DELETE, CONNECT, OPTIONS, TRACE | The type of a client |
-| client.path | string | No |  | The path of your request to access. It supports including the path variable. For example, set the path to "/pet/{id}, the value of id should be set in client.paremeters |
-| client.parameters | dict | Yes |  | The HTTP requests parameters |
-| client.body | dict | Yes |  | The HTTP requests body |
-| client.body.type | string | No | JSON, TEXT, RAW, BINARY, FORM, URLENCODED,XML | The type of HTTP requests body |
-| client.header | dict | No |  | The headers of HTTP requests body |
+| client.timeout | string | Yes |  | The timeout of client, default value 30s |
+| client.header | dict | Yes |  | The headers of HTTP |
+| requests | list | yes |  | Reusable request definition |
+| requests.name | string | no |  | The name of a request |
+| requests.method | string | No | GET, HEAD, POST, PUT, PATCH, DELETE, CONNECT, OPTIONS, TRACE | The HTTP method of a request |
+| requests.path | string | No |  | The path of your request to access. It supports including the path variable. For example, set the path to "/pet/{id}, the value of id should be set in client.paremeters |
+| requests.parameters | dict | Yes |  | The HTTP requests parameters |
+| requests.body | dict | Yes |  | The HTTP requests body |
+| requests.body.type | string | No | JSON, TEXT, RAW, BINARY, FORM, URLENCODED,XML | The type of HTTP requests body |
+| requests.header | dict | No |  | The headers of HTTP requests body |
 | scenarios | list | No |  | The environment variables that can be used in the scenarios |
 | scenarios.name | string | No |  | The name of a scenario |
 | scenarios.description | string | Yes |  | The description of a scenario |
@@ -177,3 +198,8 @@ $: itachi run [options] [file...]
 Specify which configuration file to run. If not specify, the current directory must contain "main.yaml" or "main.yml"
 
 #### check
+
+---
+
+**TODO**
+* Log

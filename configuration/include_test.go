@@ -35,5 +35,5 @@ includes:
 		},
 	}
 
-	assert.Equal(t, expected, configuration, "Parsed includes don't equal to the expected")
+	assert.EqualValues(t, expected, configuration, "Parsed includes don't equal to the expected")
 }

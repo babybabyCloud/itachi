@@ -19,15 +19,15 @@ const (
 type IncludeConf struct {
 
 	// Type is the key "type"
-	Type string `yaml: "type"`
+	Type string `yaml:"type"`
 
 	// Path is the key "path"
-	Path string `yaml: "path"`
+	Path string `yaml:"path"`
 }
 
 // Includer
 type Includer interface {
-	Read() []byte
+	read() []byte
 }
 
 // FileInclude
@@ -35,8 +35,8 @@ type FileInclude struct {
 	IncludeConf
 }
 
-// Read reads a file configuration from local directory
-func (inc *FileInclude) Read() []byte {
+// read reads a file configuration from local directory
+func (inc *FileInclude) read() []byte {
 	file, err := os.Open(inc.Path)
 	if err != nil {
 		// TODO repalce panic with self-defined error message and exit
@@ -57,7 +57,7 @@ type HTTPInclude struct {
 	IncludeConf
 }
 
-func (inc *HTTPInclude) Read() []byte {
+func (inc *HTTPInclude) read() []byte {
 	// TODO
 	return []byte{}
 }
