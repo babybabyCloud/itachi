@@ -12,3 +12,12 @@ type EnvironmentConf struct {
 	// Variables are the key "variables"
 	Variables VariableConf `yaml:"variables"`
 }
+
+// EnvironmentConfs is the alias of map of EnvironmentConf
+type EnvironmentConfs map[string]EnvironmentConf
+
+func (c EnvironmentConfs) merge(other EnvironmentConfs) {
+	for key, value := range other {
+		c[key] = value
+	}
+}

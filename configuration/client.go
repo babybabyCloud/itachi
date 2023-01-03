@@ -25,6 +25,15 @@ type ClientConf struct {
 	Headers Header `yaml:"headers"`
 }
 
+// ClientConifs is the alias of map of ClientConf
+type ClientConfs map[string]ClientConf
+
+func (c ClientConfs) merge(other ClientConfs) {
+	for key, value := range other {
+		c[key] = value
+	}
+}
+
 // AuthConf is the model of client.auth in a configuration file
 type AuthConf struct {
 	// Method specifies which type of authorization to use, only supports "Basic" and "Bearer" now

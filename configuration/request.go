@@ -33,6 +33,15 @@ type RequestConf struct {
 	Headers Header `yaml:"headers"`
 }
 
+// RequestConfs is the alias of map of RequestConf
+type RequestConfs map[string]RequestConf
+
+func (r RequestConfs) merge(other RequestConfs) {
+	for key, value := range other {
+		r[key] = value
+	}
+}
+
 // Body is the rueset body
 type Body struct {
 

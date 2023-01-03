@@ -2,7 +2,6 @@ package configuration
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 )
 
@@ -37,13 +36,7 @@ type FileInclude struct {
 
 // read reads a file configuration from local directory
 func (inc *FileInclude) read() []byte {
-	file, err := os.Open(inc.Path)
-	if err != nil {
-		// TODO repalce panic with self-defined error message and exit
-		panic(err)
-	}
-
-	data, err := ioutil.ReadAll(file)
+	data, err := os.ReadFile(inc.Path)
 	if err != nil {
 		// TODO repalce panic with self-defined error message and exit
 		panic(err)
