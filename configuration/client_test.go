@@ -9,7 +9,7 @@ import (
 
 func TestClientConf(t *testing.T) {
 	const data = `
-client:
+clients:
   - name: Client 1
     auth:
         method: Basic

@@ -1,0 +1,3 @@
+includes:
+  - type: file
+    path: ../test_data/two.yaml

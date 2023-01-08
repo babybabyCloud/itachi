@@ -46,7 +46,7 @@ variables:
   variableName1: variable value 1
   variableName2: variable value 2
 
-client:
+clients:
   - name: Client name
     auth:
       method: The authorization method of this client
@@ -129,14 +129,14 @@ scenarios:
 | environments.domain | string | No |  | The base URL with the prefix protocal of your remote sever for test. For example, http://your.doman |
 | environments.variables | dict | Yes |  | The environment variables that can be used in the suites |
 | variables | dict | Yes |  | The global variables that can be used in the suites |
-| client | list | Yes |  | The HTTP client used in the following test steps, this can be referred in scenarios.steps.client |
-| client.auth | dict | Yes |  | Specify the authorization part of a client |
-| client.auth.method | string | No | Basic, Bearer | Specify the authorization type |
-| client.auth.value | string | No |  | Specify the authorization value. For "Basic" type, it requires this value in the format of "username:password", it will be encoded using Base64. For Bearer type, it requires only the authorization value, it will be added "Bearer " to the head of this value. |
-| client.domain | string | Yes |  | The domain that the client uses, if not specify, this value will use the value of "environments.domain" |
-| client.name | string | Yes |  | The name of an HTTP client, this is used in the scenarios.steps.client.refer. This is not requires in section "scenarios.steps.client" |
-| client.timeout | string | Yes |  | The timeout of client, default value 30s |
-| client.header | dict | Yes |  | The headers of HTTP |
+| clients | list | Yes |  | The HTTP client used in the following test steps, this can be referred in scenarios.steps.client |
+| clients.auth | dict | Yes |  | Specify the authorization part of a client |
+| clients.auth.method | string | No | Basic, Bearer | Specify the authorization type |
+| clients.auth.value | string | No |  | Specify the authorization value. For "Basic" type, it requires this value in the format of "username:password", it will be encoded using Base64. For Bearer type, it requires only the authorization value, it will be added "Bearer " to the head of this value. |
+| clients.domain | string | Yes |  | The domain that the client uses, if not specify, this value will use the value of "environments.domain" |
+| clients.name | string | Yes |  | The name of an HTTP client, this is used in the scenarios.steps.client.refer. This is not requires in section "scenarios.steps.client" |
+| clients.timeout | string | Yes |  | The timeout of client, default value 30s |
+| clients.header | dict | Yes |  | The headers of HTTP |
 | requests | list | yes |  | Reusable request definition |
 | requests.name | string | no |  | The name of a request |
 | requests.method | string | No | GET, HEAD, POST, PUT, PATCH, DELETE, CONNECT, OPTIONS, TRACE | The HTTP method of a request |

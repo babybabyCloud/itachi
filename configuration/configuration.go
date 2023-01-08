@@ -20,7 +20,7 @@ type Configuration struct {
 	VariableConfig VariableConf `yaml:"variables"`
 
 	// ClientConfig represent the model of client.
-	ClientConfig []ClientConf `yaml:"client"`
+	ClientConfig []ClientConf `yaml:"clients"`
 
 	// RequestConfig represent the model of requests
 	RequestConfig []RequestConf `yaml:"requests"`
@@ -42,9 +42,9 @@ func NewConfiguration(data []byte) *Configuration {
 	}
 
 	// Environments
-	config.clientConfig = make(ClientConfs, len(config.ClientConfig))
-	for _, item := range config.ClientConfig {
-		config.clientConfig[item.Name] = item
+	config.environmentConfig = make(EnvironmentConfs, len(config.EnvironmentConfig))
+	for _, item := range config.EnvironmentConfig {
+		config.environmentConfig[item.Name] = item
 	}
 
 	// Variables
@@ -53,15 +53,15 @@ func NewConfiguration(data []byte) *Configuration {
 	}
 
 	// Clients
-	config.requestConfig = make(RequestConfs, len(config.RequestConfig))
-	for _, item := range config.RequestConfig {
-		config.requestConfig[item.Name] = item
+	config.clientConfig = make(ClientConfs, len(config.ClientConfig))
+	for _, item := range config.ClientConfig {
+		config.clientConfig[item.Name] = item
 	}
 
 	// Requests
-	config.environmentConfig = make(EnvironmentConfs, len(config.EnvironmentConfig))
-	for _, item := range config.EnvironmentConfig {
-		config.environmentConfig[item.Name] = item
+	config.requestConfig = make(RequestConfs, len(config.RequestConfig))
+	for _, item := range config.RequestConfig {
+		config.requestConfig[item.Name] = item
 	}
 
 	return &config
