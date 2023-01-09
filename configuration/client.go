@@ -9,6 +9,9 @@ const (
 // ClientConf is the model of client in a configuration file
 type ClientConf struct {
 
+	// Reference is the name of other ClientConf
+	Reference string `yaml:"referenc"`
+
 	// Name is the name of a client
 	Name string `yaml:"name"`
 

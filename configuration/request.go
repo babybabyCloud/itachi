@@ -14,6 +14,10 @@ const (
 
 // RequestConf is used to configure the request
 type RequestConf struct {
+
+	// Reference is the key "reference"
+	Reference string `yaml:"reference"`
+
 	// Name is the Requeset name, this can be used in reference
 	Name string `yaml:"name"`
 

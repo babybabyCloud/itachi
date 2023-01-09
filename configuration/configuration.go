@@ -19,17 +19,22 @@ type Configuration struct {
 	// VariableConfig represent the model of variables, this can be used to define global environment variables
 	VariableConfig VariableConf `yaml:"variables"`
 
-	// ClientConfig represent the model of client.
+	// ClientConfig represent the model of clients.
 	ClientConfig []ClientConf `yaml:"clients"`
 
 	// RequestConfig represent the model of requests
 	RequestConfig []RequestConf `yaml:"requests"`
+
+	// ScenarioConfig represent the model of scenarios
+	ScenarioConfig []ScenarioConf `yaml:"scenarios"`
 
 	environmentConfig EnvironmentConfs
 
 	clientConfig ClientConfs
 
 	requestConfig RequestConfs
+
+	scenarioConf ScenarioConfs
 }
 
 // NewConfiguration uses YAML file content to create Configuration

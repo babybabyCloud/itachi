@@ -104,16 +104,10 @@ scenarios:
         description: Send request to the remote server
         client:
           reference: Client name
-          auth:
-            method: The authorization method of this client
-            value: The authorization value
-          domain: https://your.domain
-          timeout: 30m
-          headers:
-            headerKey1: header value 1
-            headerKey2: header value 2
+          # other configurations are the same same "client"
         request:
           reference: Request name
+          # other configurations are the same same "request"
 
 
 
